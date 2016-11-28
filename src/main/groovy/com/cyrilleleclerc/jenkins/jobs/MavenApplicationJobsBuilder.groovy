@@ -9,7 +9,7 @@ class MavenApplicationJobsBuilder {
     String githubOrgName
     String rootFolder
 
-    List<Job> jobs build(DslFactory factory) {
+    List<Job> build(DslFactory factory) {
 
         String basePath = "$rootFolder/$applicationName"
 
