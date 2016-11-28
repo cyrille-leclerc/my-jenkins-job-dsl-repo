@@ -9,22 +9,20 @@ class MavenApplicationJobsBuilder {
     String githubOrgName
     String rootFolder
 
-    List<Job> build(DslFactory factory) {
+    def build(DslFactory factory) {
 
         String basePath = "$rootFolder/$applicationName"
 
-        List<Job> jobs = new ArrayList<>()
-
         factory.println("BEFORE add folder $basePath")
 
-        jobs.add(factory.folder(basePath) {
+        factory.folder(basePath) {
             description "CD Jobs for $applicationName"
-        })
+        }
 
         factory.println("BEFORE add build job")
 
 
-        jobs.add(factory.freeStyleJob("$basePath/build") {
+        factory.freeStyleJob("$basePath/build") {
             scm {
                 github("$githubOrgName/$applicationName")
             }
@@ -34,20 +32,18 @@ class MavenApplicationJobsBuilder {
             steps {
                 shell('$WORKSPACE/mvnw clean package')
             }
-        })
+        }
 
         factory.println("BEFORE add release job")
 
 
-        jobs.add(factory.freeStyleJob("$basePath/release") {
+        factory.freeStyleJob("$basePath/release") {
             scm {
                 github("$githubOrgName/$applicationName")
             }
             steps {
                 shell('$WORKSPACE/mvnw clean release:prepare && $WORKSPACE/mvnw clean release:perform')
             }
-        })
-
-        return jobs
+        }
     }
 }
