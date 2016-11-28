@@ -6,9 +6,6 @@ folder(basePath) {
 
 
 freeStyleJob("$basePath/petclinic-freestyle-by-job-dsl") {
-    parameters {
-        textParam()
-    }
     scm {
         github('spring-projects/spring-petclinic')
     }
