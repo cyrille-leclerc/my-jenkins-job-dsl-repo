@@ -9,22 +9,22 @@ class MavenApplicationJobsBuilder {
     String githubOrgName
     String rootFolder
 
-    Job build(DslFactory factory) {
+    List<Job> jobs build(DslFactory factory) {
 
         String basePath = "$rootFolder/$applicationName"
 
         List<Job> jobs = new ArrayList<>()
 
-        println("BEFORE add folder $basePath")
+        factory.println("BEFORE add folder $basePath")
 
         jobs.add(factory.folder(basePath) {
             description "CD Jobs for $applicationName"
         })
 
-        println("BEFORE add build job")
+        factory.println("BEFORE add build job")
 
 
-        jobs.add(freeStyleJob("$basePath/build") {
+        jobs.add(factory.freeStyleJob("$basePath/build") {
             scm {
                 github("$githubOrgName/$applicationName")
             }
@@ -36,10 +36,10 @@ class MavenApplicationJobsBuilder {
             }
         })
 
-        println("BEFORE add release job")
+        factory.println("BEFORE add release job")
 
 
-        jobs.add(freeStyleJob("$basePath/release") {
+        jobs.add(factory.freeStyleJob("$basePath/release") {
             scm {
                 github("$githubOrgName/$applicationName")
             }
@@ -48,6 +48,6 @@ class MavenApplicationJobsBuilder {
             }
         })
 
-        return jobs.last()
+        return jobs
     }
 }
