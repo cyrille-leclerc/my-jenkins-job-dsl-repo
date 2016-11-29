@@ -19,7 +19,7 @@ class MavenApplicationJobsBuilder {
         // BUILD JOB
         factory.freeStyleJob("$basePath/build") {
             scm {
-                github(ownerAndProject: "$githubOrgName/$applicationName", branch: 'master')
+                github("$githubOrgName/$applicationName", 'master')
                 credentialsId("github-credentials")
             }
             triggers {
