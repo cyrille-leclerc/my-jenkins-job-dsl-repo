@@ -1,6 +1,8 @@
 package com.cyrilleleclerc.jenkins.jobs
 
 import javaposse.jobdsl.dsl.DslFactory
+import javaposse.jobdsl.dsl.Folder
+import javaposse.jobdsl.dsl.Job
 
 
 class MavenApplicationJobsBuilder {
@@ -12,12 +14,14 @@ class MavenApplicationJobsBuilder {
 
         String basePath = "$rootFolder/$applicationName"
 
-        factory.folder(basePath) {
-            description "CD Jobs for $applicationName"
+        List<Job> jobs = new ArrayList<>()
+
+        Folder groupingFolder = factory.folder(basePath) {
+            description "CD Jobs for application $applicationName"
         }
 
         // BUILD JOB
-        factory.freeStyleJob("$basePath/build") {
+        Job buildJob = factory.freeStyleJob("$basePath/build") {
             scm {
                 git {
                     remote {
@@ -37,9 +41,10 @@ class MavenApplicationJobsBuilder {
                 archiveJunit 'target/surefire-reports/**/TEST-*.xml'
             }
         }
+        jobs.add(buildJob)
 
         // RELEASE JOB
-        factory.freeStyleJob("$basePath/release") {
+        Job releaseJob = factory.freeStyleJob("$basePath/release") {
             scm {
                 git {
                     remote {
@@ -56,5 +61,8 @@ class MavenApplicationJobsBuilder {
                 archiveJunit 'target/surefire-reports/**/TEST-*.xml'
             }
         }
+        jobs.add(releaseJob)
+
+        return jobs
     }
 }

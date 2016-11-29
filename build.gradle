@@ -42,6 +42,10 @@ dependencies {
     // plugins to install in test instance
     testPlugins 'org.jenkins-ci.plugins:ghprb:1.31.4'
     testPlugins 'com.coravy.hudson.plugins.github:github:1.19.0'
+    // doesn't fix https://gist.github.com/cyrille-leclerc/c393b7d67dc2ac68ee3ac09b2fa6dee1
+    testPlugins 'org.jenkins-ci.plugins.workflow:workflow-job:2.9'
+    // doesn't fix https://gist.github.com/cyrille-leclerc/90b7af5f5ed2f54c0159043dc713ded4
+    testPlugins 'org.jenkins-ci.plugins:credentials:2.1.10'
 
     // for the RestApiScriptRunner
     compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2') {
