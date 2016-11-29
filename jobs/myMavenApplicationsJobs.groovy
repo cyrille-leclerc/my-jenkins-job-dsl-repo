@@ -19,3 +19,9 @@ new MavenApplicationJobsBuilder(
         githubOrgName: "cyrille-leclerc",
         rootFolder: "maven-applications/cyrille-leclerc"
 ).build(this)
+
+new MavenApplicationJobsBuilder(
+        applicationName: "my-new-application",
+        githubOrgName: "cyrille-leclerc",
+        rootFolder: "maven-applications/cyrille-leclerc"
+).build(this)
