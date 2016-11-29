@@ -21,7 +21,7 @@ class MavenApplicationJobsBuilder {
             scm {
                 git {
                     remote {
-                        github("$githubOrgName/$applicationName", 'master')
+                        github("$githubOrgName/$applicationName")
                         credentials("github-credentials")
                     }
                 }
@@ -41,7 +41,12 @@ class MavenApplicationJobsBuilder {
         // RELEASE JOB
         factory.freeStyleJob("$basePath/release") {
             scm {
-                github("$githubOrgName/$applicationName")
+                git {
+                    remote {
+                        github("$githubOrgName/$applicationName")
+                        credentials("github-credentials")
+                    }
+                }
             }
             steps {
                 shell('$WORKSPACE/mvnw clean release:prepare && $WORKSPACE/mvnw clean release:perform')
