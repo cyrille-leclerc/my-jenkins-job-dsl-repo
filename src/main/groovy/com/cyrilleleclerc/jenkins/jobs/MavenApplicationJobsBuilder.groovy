@@ -17,7 +17,7 @@ class MavenApplicationJobsBuilder {
         List<Job> jobs = new ArrayList<>()
 
         Folder groupingFolder = factory.folder(basePath) {
-            description "CD Jobs for application $applicationName"
+            description "CD Jobs for application $applicationName - hello harpreet"
         }
 
         // BUILD JOB
